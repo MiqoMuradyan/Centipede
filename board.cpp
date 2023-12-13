@@ -29,8 +29,8 @@ void Board::generateRandomMushrooms() {
             positionY = (rand() % (boardHeight - 1)) + 1;
 
         } while (table[positionY][positionX].getType() == mushroom);
-        std::unique_ptr<Mushroom> newMushroom(positionX, positionY);
-        table[positionY][positionX] = newMushroom;
+        
+        table[positionY][positionX].setType(mushroom);
     }
 }
 
@@ -89,8 +89,7 @@ void Board::shoot(int cursorX) {
     int bulletIndexY = boardHeight - 3;
     const int bulletIndexX = cursorX;
 
-    table[bulletIndexY][bulletIndexX].setMovement(true);
-    table[bulletIndexY][bulletIndexX].setBlock(true);
+    table[bulletIndexY][bulletIndexX].setType(mushroom);
 }
 
 void Board::updatePlayerPosition(int positionX, int positionY) {
