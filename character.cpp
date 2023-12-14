@@ -1,10 +1,6 @@
 #pragma once
 #include "character.hpp"
 
-Character::Character() {
-
-}
-
 ECharactersType Character::getType() {
     return characterType;
 }
@@ -14,5 +10,11 @@ void Character::setType(ECharactersType type) {
 }
 
 void Character::reduceHealth() {
-    health > 0 ? --health : characterType = blank;  
+    /// TODO: Miqo es masy dzi aveli lav gri if-y
+
+    health > 0 ? --health : characterType = blank;
+    
+    if(health = 0) {
+        characterType = blank;
+    }
 }

@@ -2,7 +2,6 @@
 
 #include <array>
 #include <iostream>
-#include <memory>
 
 #include "character.hpp"
 #include "enums.hpp"
@@ -30,11 +29,7 @@ public:
     matrixOfCharacters getTable();
     bool getIsLose();
 
-
-
 private:
-    void destroyLine(int lineIndex);
-
     int playerPosX;
     int playerPosY;
     bool isLose = false;

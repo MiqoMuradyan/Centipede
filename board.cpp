@@ -3,8 +3,8 @@
 Board::Board() {
     generateRandomMushrooms();
 
-    playerPosX = boardHeight - 1;
-    playerPosY = boardWidth / 2;   
+    playerPosY = boardHeight - 2;
+    playerPosX = boardWidth / 2;   
 }
 
 Board::~Board() {
@@ -30,7 +30,7 @@ void Board::generateRandomMushrooms() {
         do
         {
             positionX = rand() % boardWidth;
-            positionY = (rand() % (boardHeight - 1)) + 1;
+            positionY = (rand() % (boardHeight - 2)) + 1;
 
         } while (table[positionY][positionX].getType() == mushroom);
         
@@ -42,6 +42,8 @@ void Board::generateRandomMushrooms() {
 void Board::shoot(int cursorY, int cursorX) {
     int bulletIndexY = cursorY - 1;
     const int bulletIndexX = cursorX;
+
+    /// TODO: Check if in this coordinates stay Mushroom uremn piti kyanq tani voch te texy grvi
 
     table[bulletIndexY][bulletIndexX].setType(bullet);
 }

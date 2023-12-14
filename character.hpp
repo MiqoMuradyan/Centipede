@@ -4,8 +4,6 @@
 
 class Character {
 public:
-    Character();
-
     ECharactersType getType();
     void setType(ECharactersType type);
     void reduceHealth();
