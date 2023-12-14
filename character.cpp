@@ -10,11 +10,10 @@ void Character::setType(ECharactersType type) {
 }
 
 void Character::reduceHealth() {
-    /// TODO: Miqo es masy dzi aveli lav gri if-y
-    if(health > 0) {
+    if(health > 1) {
         --health;
     }
-    if(health == 0) {
+    else {
         characterType = blank;
     }
     /*
