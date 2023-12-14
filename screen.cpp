@@ -1,5 +1,6 @@
 #include "screen.hpp"
 
+
 Screen::Screen() {
     initscr();
     cbreak();

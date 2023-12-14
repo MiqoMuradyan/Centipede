@@ -7,14 +7,14 @@
 #include "enums.hpp"
 
 
-static const int boardHeight = 40;
-static const int boardWidth = 40;
+const int BOARD_HEIGHT = 40;
+const int BOARD_WIDTH = 40;
 
-const int mushroomsCountMin = 20;
-const int mushroomsCountMax = 30;
+const int MUSHROOMS_COUNT_MIN = 20;
+const int MUSHROOMS_COUNT_MAX = 30;
 
-using arrayOfCharacters = std::array<Character, boardWidth>;
-using matrixOfCharacters = std::array<arrayOfCharacters, boardHeight>;
+using arrayOfCharacters = std::array<Character, BOARD_WIDTH>;
+using matrixOfCharacters = std::array<arrayOfCharacters, BOARD_HEIGHT>;
 
 class Board {
 public:

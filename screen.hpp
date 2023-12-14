@@ -1,18 +1,28 @@
 #pragma once
 
+#include "board.hpp"
+
 #include <iostream>
 #include <ncurses.h>
 
 class Screen
 {
-private:
 public:
     Screen();
     ~Screen();
+private:
 };
 
 
 class GameScreen:Screen {
+
+public:
+    GameScreen();
+    ~GameScreen();
+
+    void updateGameWindow(matrixOfCharacters table);
+    void updateScoreDisplay(int score, int hightScore);
+
 private : 
     const int gameScreenHeight = 40;
     const int gameScreenWidth = 40;
@@ -24,17 +34,15 @@ private :
 
     WINDOW *gameWindow;
     WINDOW *scoreWindow;
-
-public:
-    GameScreen();
-    ~GameScreen();
-
-    void updateGameWindow(matrixOfCharacters table);
-    void updateScoreDisplay(int score, int hightScore);
 };
 
 
 class MenuScreen:Screen {
+public:
+    MenuScreen();
+    ~MenuScreen();
+    void updateMenuWindow(int choice);
+    
 private:
     const int menuScreenHeight = 9;
     const int menuScreenWidth = 14;
@@ -48,8 +56,4 @@ private:
     "Exit",
     };
 
-public:
-    MenuScreen();
-    ~MenuScreen();
-    void updateMenuWindow(int choice);
 };

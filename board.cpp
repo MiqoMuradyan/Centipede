@@ -3,8 +3,8 @@
 Board::Board() {
     generateRandomMushrooms();
 
-    playerPosY = boardHeight - 2;
-    playerPosX = boardWidth / 2;   
+    playerPosY = BOARD_HEIGHT - 2;
+    playerPosX = BOARD_WIDTH / 2;   
 }
 
 Board::~Board() {
@@ -22,15 +22,15 @@ bool Board::getIsLose() {
 //Works
 void Board::generateRandomMushrooms() {
     srand(time(NULL));
-    int mushroomsCount = (rand() % (mushroomsCountMax - mushroomsCountMin + 1)) + mushroomsCountMin;
+    int mushroomsCount = (rand() % (MUSHROOMS_COUNT_MAX - MUSHROOMS_COUNT_MIN + 1)) + MUSHROOMS_COUNT_MIN;
     
     int positionX;
     int positionY;
     for (int i = 0; i < mushroomsCount; ++i){
         do
         {
-            positionX = rand() % boardWidth;
-            positionY = (rand() % (boardHeight - 2)) + 1;
+            positionX = rand() % BOARD_WIDTH;
+            positionY = (rand() % (BOARD_HEIGHT - 2)) + 1;
 
         } while (table[positionY][positionX].getType() == mushroom);
         
@@ -60,12 +60,12 @@ void Board::movePlayer(EDirections direction) {
         }
         break;
     case down:
-        if (playerPosY < boardHeight - 1) {
+        if (playerPosY < BOARD_HEIGHT - 1) {
             ++playerPosY;
         }
         break;
     case right:
-        if (playerPosX < boardWidth - 1){
+        if (playerPosX < BOARD_WIDTH - 1){
             ++playerPosX;
         }   
         break;
@@ -82,9 +82,9 @@ void Board::movePlayer(EDirections direction) {
 
 //Works
 void Board::moveBulletsUp() {
-    for (int i = 0; i < boardHeight - 2; ++i)
+    for (int i = 0; i < BOARD_HEIGHT - 2; ++i)
     {
-        for (int j = 0; j < boardWidth; ++j)
+        for (int j = 0; j < BOARD_WIDTH; ++j)
         {
             if (table[i][j].getType() == bullet)
             {
