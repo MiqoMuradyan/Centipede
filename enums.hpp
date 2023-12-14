@@ -1,10 +1,17 @@
 #pragma once
 
 enum ECharactersType {
-    blan,
+    blank,
     player,
     centipede,
     mushroom,
     spider,
     bullet
+};
+
+enum EDirections {
+    up,
+    down,
+    right,
+    left
 };

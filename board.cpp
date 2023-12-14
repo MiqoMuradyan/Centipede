@@ -1,7 +1,10 @@
 #include "board.hpp"
 
 Board::Board() {
-    table[0] = generateRow();    
+    generateRandomMushrooms();
+
+    playerPosX = boardHeight - 1;
+    playerPosY = boardWidth / 2;   
 }
 
 Board::~Board() {
@@ -43,17 +46,36 @@ void Board::shoot(int cursorY, int cursorX) {
     table[bulletIndexY][bulletIndexX].setType(bullet);
 }
 
-void Board::updatePlayerPosition(int positionX, int positionY) {
-    for (int i = boardHeight - 2; i < boardHeight; ++i) {
-        for (int j = 0; j < boardWidth; ++j) {
-            table[i][j].setBlock(false);
+
+//Works
+void Board::movePlayer(EDirections direction) {
+    table[playerPosY][playerPosX].setType(blank);
+    
+    switch (direction) {
+    case up:
+        if (playerPosY > 0) {
+            --playerPosY;
         }
+        break;
+    case down:
+        if (playerPosY < boardHeight - 1) {
+            ++playerPosY;
+        }
+        break;
+    case right:
+        if (playerPosX < boardWidth - 1){
+            ++playerPosX;
+        }   
+        break;
+    case left:
+        if (playerPosX > 0) {
+            --playerPosX;
+        }
+        break;
+    
     }
 
-    table[positionY][positionX].setBlock(true);
-
-    /// TODO: Need to give this function a directon, and current x, y to 
-    // set it blank and update player position
+    table[playerPosY][playerPosX].setType(player);
 }
 
 //Works

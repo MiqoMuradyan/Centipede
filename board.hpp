@@ -18,11 +18,6 @@ using arrayOfCharacters = std::array<Character, boardWidth>;
 using matrixOfCharacters = std::array<arrayOfCharacters, boardHeight>;
 
 class Board {
-private:
-    bool isLose = false;
-    matrixOfCharacters table;
-    void destroyLine(int lineIndex);
-
 public:
     Board();
     ~Board();
@@ -31,9 +26,17 @@ public:
     void shoot(int cursorY, int cursorX);
     void moveBulletsUp();
     void checkEnemyCollision(int posY, int posX);
-
-
-    void updatePlayerPosition(int positionX, int positionY);
+    void movePlayer(EDirections direction);
     matrixOfCharacters getTable();
     bool getIsLose();
+
+
+
+private:
+    void destroyLine(int lineIndex);
+
+    int playerPosX;
+    int playerPosY;
+    bool isLose = false;
+    matrixOfCharacters table;
 };
