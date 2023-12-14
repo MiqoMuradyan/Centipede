@@ -12,3 +12,7 @@ ECharactersType Character::getType() {
 void Character::setType(ECharactersType type) {
     characterType = type;
 }
+
+void Character::reduceHealth() {
+    health > 0 ? --health : characterType = blank;  
+}

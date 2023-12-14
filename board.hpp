@@ -28,14 +28,12 @@ public:
     ~Board();
 
     void generateRandomMushrooms();
-
-    void shoot(int cursorX);
+    void shoot(int cursorY, int cursorX);
     void moveBulletsUp();
-    bool checkToDestroyLine();
-    void addNewLine();
-    void destructionAnimation(int lineIndex);
+    void checkEnemyCollision(int posY, int posX);
+
+
     void updatePlayerPosition(int positionX, int positionY);
-    arrayOfCharacters generateRow();
     matrixOfCharacters getTable();
     bool getIsLose();
 };
