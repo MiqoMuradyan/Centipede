@@ -82,7 +82,7 @@ void Centipede::deleteLastSegment() {
 }
 
 void Centipede::createCentipede() {
-    // stex num em -i vor skzbic chereva pochi masy heto gnalov haytnvi
+    // stex dnum em -i vor skzbic chereva pochi masy heto gnalov haytnvi
     for(int i = 0; i < segmentsCount; ++i) {
         centipedeBody[i].setPosition(-i, 0);
     }

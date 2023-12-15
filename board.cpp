@@ -138,6 +138,11 @@ void Board::insertCentipedeInTable() {
 void Board::moveCentipede() {
     const auto [nextPosX, nextPosY] = centipede.getCentipede()[0].computeNextPosition();
     
+    for(int i = 0; i < centipede.getCentipede().size(); ++i) {
+        auto [x, y] = centipede.getCentipede()[i].getPosition();
+        table[y][x].setType(blank);
+    }
+
     if(nextPosX >= BOARD_WIDTH || nextPosX < 0 || 
     table[nextPosY][nextPosX].getType() == mushroom) {
 
