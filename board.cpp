@@ -43,11 +43,13 @@ void Board::shoot(int cursorY, int cursorX) {
     int bulletIndexY = cursorY - 1;
     const int bulletIndexX = cursorX;
 
-    /// TODO: Check if in this coordinates stay Mushroom uremn piti kyanq tani voch te texy grvi
-
-    table[bulletIndexY][bulletIndexX].setType(bullet);
+    if(table[bulletIndexY][bulletIndexX].getType() != blank) {
+        checkEnemyType(bulletIndexY, bulletIndexX);
+    }
+    else {
+        table[bulletIndexY][bulletIndexX].setType(bullet);
+    }
 }
-
 
 //Works
 void Board::movePlayer(EDirections direction) {
@@ -97,7 +99,7 @@ void Board::moveBulletsUp() {
                     else
                     {
                         table[i][j].setType(blank);
-                        checkEnemyCollision(i - 1, j);
+                        checkEnemyType(i - 1, j);
                     }
                 }
                 else {
@@ -109,11 +111,49 @@ void Board::moveBulletsUp() {
 }
 
 //Works
-void Board::checkEnemyCollision(int posY, int posX) {
+void Board::checkEnemyType(int posY, int posX) {
     if (table[posY][posX].getType() == mushroom) {
         table[posY][posX].reduceHealth();
+    }
+    else if (table[posY][posX].getType() == ECharactersType::centipede) {
+        const auto [segPosX, segPosY] = centipede.getCentipede()[centipede.getCentipede().size() - 1].getPosition();
+        table[segPosY][segPosX].setType(mushroom);
+
+        centipede.deleteLastSegment();
     }
     else {
         table[posY][posX].setType(blank);
     }
+}
+
+//Works
+void Board::insertCentipedeInTable() {
+    for (int i = 0; centipede.getCentipede().size(); ++i) {
+        auto [x, y] = centipede.getCentipede()[i].getPosition();
+        table[y][x].setType(ECharactersType::centipede);
+    }
+}
+
+//Works
+void Board::moveCentipede() {
+    const auto [nextPosX, nextPosY] = centipede.getCentipede()[0].computeNextPosition();
+    
+    if(nextPosX >= BOARD_WIDTH || nextPosX < 0 || 
+    table[nextPosY][nextPosX].getType() == mushroom) {
+
+        //if Y == 0 delete last segment and dont move centipede
+        if(nextPosY >= BOARD_HEIGHT - 1) {
+            centipede.deleteLastSegment();
+        }
+        else {
+            centipede.moveDown();
+        }
+    }
+    else {
+        centipede.move();
+    }
+}
+
+void Board::spawnCentipede() {
+    centipede.createCentipede();
 }

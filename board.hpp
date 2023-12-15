@@ -3,6 +3,7 @@
 #include <array>
 #include <iostream>
 
+#include "centipede.hpp"
 #include "character.hpp"
 #include "enums.hpp"
 
@@ -24,14 +25,18 @@ public:
     void generateRandomMushrooms();
     void shoot(int cursorY, int cursorX);
     void moveBulletsUp();
-    void checkEnemyCollision(int posY, int posX);
+    void checkEnemyType(int posY, int posX);
     void movePlayer(EDirections direction);
     matrixOfCharacters getTable();
     bool getIsLose();
+    void insertCentipedeInTable();
+    void spawnCentipede();
+    void moveCentipede();
 
 private:
     int playerPosX;
     int playerPosY;
     bool isLose = false;
     matrixOfCharacters table;
+    Centipede centipede;
 };
