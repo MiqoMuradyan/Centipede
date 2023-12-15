@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOARD_HPP
+#define BOARD_HPP
 
 #include <array>
 #include <iostream>
@@ -40,3 +41,5 @@ private:
     matrixOfCharacters table;
     Centipede centipede;
 };
+
+#endif //BOARD_HPP

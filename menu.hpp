@@ -1,6 +1,7 @@
-#pragma once
+#ifndef MENU_HPP
+#define MENU_HPP
 
-//#include "game.hpp"
+#include "game.hpp"
 #include "screen.hpp"
 
 class Menu {
@@ -13,3 +14,5 @@ public:
     void handleChoice(int choice);
 
 };
+
+#endif //MENU_HPP

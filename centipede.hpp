@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CENTIPEDE_HPP
+#define CENTIPEDE_HPP
 
 #include <iostream>
 #include <vector>
@@ -36,3 +37,5 @@ private:
     const int segmentsCount = 12;
     std::vector<CentipedeSegment> centipedeBody;
 };
+
+#endif //CENTIPEDE_HPP

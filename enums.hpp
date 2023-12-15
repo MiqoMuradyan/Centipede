@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENUMS_HPP
+#define ENUMS_HPP
 
 enum ECharactersType {
     blank,
@@ -15,3 +16,5 @@ enum EDirections {
     right,
     left
 };
+
+#endif //ENUMS_HPP

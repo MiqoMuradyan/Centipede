@@ -1,6 +1,5 @@
 #include "screen.hpp"
 
-
 Screen::Screen() {
     initscr();
     cbreak();
@@ -56,10 +55,24 @@ void GameScreen::updateGameWindow(matrixOfCharacters table) {
 
     for (int row = 0; row < gameScreenHeight; ++row) 
     {
-        for (int col = 0; col < gameScreenWidth; col += 2) 
-        {
-            //TODO: fix this line "col / 2" part, create another logic
-            if (table[row][col / 2].getBlock()) {
+        for (int col = 0; col < gameScreenWidth; ++col) 
+        {   
+            std::string symbol;
+            switch(table[row][col].getType()){
+                case mushroom:
+                    symbol = table[row][col].getHealth().c_str();
+                    mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
+                    break;
+                case player:
+                    break;
+                case centipede:
+                    break;
+                case blank:
+                    break;
+            }
+
+            ///TODO: fix this line "col / 2" part, create another logic
+            if (table[row][col / 2].getType()) {
                 wattron(gameWindow, COLOR_PAIR(1));
                 mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
                 mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');

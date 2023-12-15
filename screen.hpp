@@ -1,6 +1,8 @@
-#pragma once
+#ifndef SCREEN_HPP
+#define SCREEN_HPP
 
 #include "board.hpp"
+#include "character.hpp"
 
 #include <iostream>
 #include <ncurses.h>
@@ -57,3 +59,5 @@ private:
     };
 
 };
+
+#endif //SCREEN_HPP

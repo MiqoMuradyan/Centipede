@@ -1,4 +1,5 @@
-#pragma once 
+#ifndef CHARACTER_HPP
+#define CHARACTER_HPP
 
 #include "enums.hpp"
 
@@ -7,6 +8,7 @@ public:
     ECharactersType getType();
     void setType(ECharactersType type);
     void reduceHealth();
+    int getHealth();
 
 private:
     char symbol;
@@ -14,3 +16,4 @@ private:
     int health = 4;
 };
 
+#endif //CHARACTER_HPP

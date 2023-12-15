@@ -16,11 +16,8 @@ void Character::reduceHealth() {
     else {
         characterType = blank;
     }
-    /*
-    health > 0 ? --health : characterType = blank;
-    
-    if(health = 0) {
-        characterType = blank;
-    }
-    */
+}
+
+int Character::getHealth() {
+    return health;
 }
