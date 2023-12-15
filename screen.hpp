@@ -26,7 +26,7 @@ public:
     void updateScoreDisplay(int score, int hightScore);
 
 private : 
-    const int gameScreenHeight = 40;
+    const int gameScreenHeight = 20;
     const int gameScreenWidth = 40;
     const int scoreScreenHeight = 20;
     const int scoreScreenWidth = 10;

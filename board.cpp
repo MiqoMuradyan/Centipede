@@ -39,9 +39,9 @@ void Board::generateRandomMushrooms() {
 }
 
 //Works
-void Board::shoot(int cursorY, int cursorX) {
-    int bulletIndexY = cursorY - 1;
-    const int bulletIndexX = cursorX;
+void Board::shoot() {
+    int bulletIndexY = playerPosY - 1;
+    const int bulletIndexX = playerPosX;
 
     if(table[bulletIndexY][bulletIndexX].getType() != blank) {
         checkEnemyType(bulletIndexY, bulletIndexX);
@@ -57,22 +57,22 @@ void Board::movePlayer(EDirections direction) {
     
     switch (direction) {
     case up:
-        if (playerPosY > 0) {
+        if (playerPosY > 0 && table[playerPosY - 1][playerPosX].getType() == blank) {
             --playerPosY;
         }
         break;
     case down:
-        if (playerPosY < BOARD_HEIGHT - 1) {
+        if (playerPosY < BOARD_HEIGHT - 1 && table[playerPosY + 1][playerPosX].getType() == blank) {
             ++playerPosY;
         }
         break;
     case right:
-        if (playerPosX < BOARD_WIDTH - 1){
+        if (playerPosX < BOARD_WIDTH - 1 && table[playerPosY][playerPosX + 1].getType() == blank){
             ++playerPosX;
         }   
         break;
     case left:
-        if (playerPosX > 0) {
+        if (playerPosX > 0 && table[playerPosY][playerPosX - 1].getType() == blank) {
             --playerPosX;
         }
         break;
@@ -128,9 +128,12 @@ void Board::checkEnemyType(int posY, int posX) {
 
 //Works
 void Board::insertCentipedeInTable() {
-    for (int i = 0; centipede.getCentipede().size(); ++i) {
+    for (int i = 0; i < centipede.getCentipede().size(); ++i) {
         auto [x, y] = centipede.getCentipede()[i].getPosition();
-        table[y][x].setType(ECharactersType::centipede);
+
+        if(x >= 0 && y >= 0) {
+            table[y][x].setType(ECharactersType::centipede);
+        }
     }
 }
 
@@ -139,8 +142,11 @@ void Board::moveCentipede() {
     const auto [nextPosX, nextPosY] = centipede.getCentipede()[0].computeNextPosition();
     
     for(int i = 0; i < centipede.getCentipede().size(); ++i) {
+        
         auto [x, y] = centipede.getCentipede()[i].getPosition();
-        table[y][x].setType(blank);
+        if(x >= 0 && y >= 0) {
+            table[y][x].setType(blank);
+        }
     }
 
     if(nextPosX >= BOARD_WIDTH || nextPosX < 0 || 

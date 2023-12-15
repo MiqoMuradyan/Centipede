@@ -5,13 +5,14 @@
 
 class Character {
 public:
+    Character();
     ECharactersType getType();
     void setType(ECharactersType type);
     void reduceHealth();
     int getHealth();
 
 private:
-    char symbol;
+    // char symbol;
     ECharactersType characterType;
     int health = 4;
 };

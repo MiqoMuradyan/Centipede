@@ -19,7 +19,7 @@ public:
     
     
 private:
-    EDirections moveDirection;
+    EDirections moveDirection = right;
     int posX;
     int posY;
 };

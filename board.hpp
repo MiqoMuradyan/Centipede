@@ -9,7 +9,7 @@
 #include "enums.hpp"
 
 
-const int BOARD_HEIGHT = 40;
+const int BOARD_HEIGHT = 20;
 const int BOARD_WIDTH = 40;
 
 const int MUSHROOMS_COUNT_MIN = 20;
@@ -24,7 +24,7 @@ public:
     ~Board();
 
     void generateRandomMushrooms();
-    void shoot(int cursorY, int cursorX);
+    void shoot();
     void moveBulletsUp();
     void checkEnemyType(int posY, int posX);
     void movePlayer(EDirections direction);

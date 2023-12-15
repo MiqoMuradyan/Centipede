@@ -1,6 +1,10 @@
 #pragma once
 #include "character.hpp"
 
+Character::Character() {
+    characterType = blank;
+}
+
 ECharactersType Character::getType() {
     return characterType;
 }

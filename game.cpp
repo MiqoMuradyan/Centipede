@@ -5,15 +5,12 @@ Game::Game() {
     GameScreen screen;
     ScoreManager scoreManager;
 
-    std::chrono::milliseconds rowGenerationTime(gameSpeed - (scoreManager.getSpeed() * speedCoefficient));
-
-    rowGenerationStartTime = std::chrono::steady_clock::now();
+    centipedeMovingStartTime = std::chrono::steady_clock::now();
     bulletMovingStartTime = std::chrono::steady_clock::now();
     shotCooldownStartTime = std::chrono::steady_clock::now();
-    speedUpStartTime = std::chrono::steady_clock::now();
 
+    cursorY = BOARD_HEIGHT - 2;
     cursorX = BOARD_WIDTH / 2;
-    cursorY = BOARD_HEIGHT - 1;
 }
 
 Game::~Game() {
@@ -21,14 +18,14 @@ Game::~Game() {
 }
 
 void Game::start() {
+    board.spawnCentipede();
     while (!board.getIsLose()) {
+        
         inputHandling();
-        cooldownManager();
-
-        board.updatePlayerPosition(cursorX, cursorY);
+        cooldownManager();       
         
         screen.updateGameWindow(board.getTable());
-        screen.updateScoreDisplay(scoreManager.getScore(), scoreManager.getHighScore(), scoreManager.getSpeed());
+        screen.updateScoreDisplay(scoreManager.getScore(), scoreManager.getHighScore());
     }
 }
 
@@ -40,14 +37,25 @@ void Game::inputHandling() {
     switch (inputKey)
     {
     case 'a':  //TODO: implement this input with KEY_LEFT, and etc.
-        if (cursorX > 0)
-           --cursorX;
+        if (cursorX > 0) {
+           board.movePlayer(left);
+        }
         break;
     case 'd':
-        if (cursorX < BOARD_WIDTH - 1)
-            ++cursorX;
+        if (cursorX < BOARD_WIDTH - 1) {
+            board.movePlayer(right);
+        }            
         break;
     case 'w':
+        if (cursorY > 0) {
+            board.movePlayer(up);
+        }
+        break;
+    case 's':
+        if (cursorY < BOARD_WIDTH - 1) {
+            board.movePlayer(down);
+        }
+        break;
     case ' ':
             shootManager();
         break;
@@ -56,29 +64,21 @@ void Game::inputHandling() {
         //TODO: create logic to end game
         break;
     }
+    
 }
 
 void Game::cooldownManager() {
     auto currentTime = std::chrono::steady_clock::now();
     
-    if (currentTime - rowGenerationStartTime >= rowGenerationTime) {
-        board.addNewLine();
-        rowGenerationStartTime = currentTime;
+    if (currentTime - centipedeMovingStartTime >= centipedeMovingTime) {
+        board.moveCentipede();
+        board.insertCentipedeInTable();
+        centipedeMovingStartTime = currentTime;
     }
 
     if (currentTime - bulletMovingStartTime >= bulletMovingTime) {
-        board.moveBulletsUp();
-        if (board.checkToDestroyLine()) {
-            scoreManager.increaseScore(scoreAmount);
-        }
+        board.moveBulletsUp();        
         bulletMovingStartTime = currentTime;
-    }
-
-    if (currentTime - speedUpStartTime >= speedUpTime) {
-        scoreManager.increaseSpeed();
-        speedUpStartTime = currentTime;
-
-        rowGenerationTime = std::chrono::milliseconds{gameSpeed - (scoreManager.getSpeed() * speedCoefficient)};
     }
 }
 
@@ -88,6 +88,6 @@ void Game::shootManager() {
     if (currentTime - shotCooldownStartTime >= shotCooldownTime) {
         shotCooldownStartTime = currentTime;
 
-        board.shoot(cursorX);
+        board.shoot();
     }
 }

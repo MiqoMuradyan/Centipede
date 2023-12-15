@@ -12,6 +12,8 @@ Screen::Screen() {
     init_pair(1, COLOR_BLACK, COLOR_CYAN);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
     init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(4, COLOR_GREEN, COLOR_BLACK);
+    init_pair(5, COLOR_RED, COLOR_BLACK);
 }
 
 Screen::~Screen() {
@@ -60,30 +62,42 @@ void GameScreen::updateGameWindow(matrixOfCharacters table) {
             std::string symbol;
             switch(table[row][col].getType()){
                 case mushroom:
-                    symbol = table[row][col].getHealth().c_str();
-                    mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
+                    wattron(gameWindow, COLOR_PAIR(4));
+                    symbol = std::to_string(table[row][col].getHealth());
                     break;
                 case player:
+                    wattron(gameWindow, COLOR_PAIR(2));
+                    symbol = "O";
                     break;
                 case centipede:
+                    wattron(gameWindow, COLOR_PAIR(5));
+                    symbol = "#";
                     break;
                 case blank:
+                    symbol = " ";
+                    break;
+                case bullet:
+                    symbol = "|";
                     break;
             }
 
+            mvwaddch(gameWindow, offsetY + row, offsetX + col, symbol[0]);
+            wattroff(gameWindow, COLOR_PAIR(2));
+            wattroff(gameWindow, COLOR_PAIR(4));
+            wattroff(gameWindow, COLOR_PAIR(5));
             ///TODO: fix this line "col / 2" part, create another logic
-            if (table[row][col / 2].getType()) {
-                wattron(gameWindow, COLOR_PAIR(1));
-                mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
-                mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
-                wattroff(gameWindow, COLOR_PAIR(1));
-            }
-            else {
-                wattron(gameWindow, COLOR_PAIR(2));
-                mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
-                mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
-                wattroff(gameWindow, COLOR_PAIR(2));
-            }
+            // if (table[row][col / 2].getType()) {
+            //     wattron(gameWindow, COLOR_PAIR(1));
+            //     mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
+            //     mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
+            //     wattroff(gameWindow, COLOR_PAIR(1));
+            // }
+            // else {
+            //     wattron(gameWindow, COLOR_PAIR(2));
+            //     mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
+            //     mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
+            //     wattroff(gameWindow, COLOR_PAIR(2));
+            // }
         }
     }
 
