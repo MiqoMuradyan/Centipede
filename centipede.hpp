@@ -36,6 +36,7 @@ public:
 private:
     const int segmentsCount = 12;
     std::vector<CentipedeSegment> centipedeBody;
+    std::vector<EDirections> moveHistory;
 };
 
 #endif //CENTIPEDE_HPP

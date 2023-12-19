@@ -2,7 +2,6 @@
 
 Board::Board() {
     generateRandomMushrooms();
-
     playerPosY = BOARD_HEIGHT - 2;
     playerPosX = BOARD_WIDTH / 2;   
 }
@@ -118,7 +117,6 @@ void Board::checkEnemyType(int posY, int posX) {
     else if (table[posY][posX].getType() == ECharactersType::centipede) {
         const auto [segPosX, segPosY] = centipede.getCentipede()[centipede.getCentipede().size() - 1].getPosition();
         table[segPosY][segPosX].setType(mushroom);
-
         centipede.deleteLastSegment();
     }
     else {

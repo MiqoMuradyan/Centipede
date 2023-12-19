@@ -46,38 +46,48 @@ void CentipedeSegment::moveSegment() {
     posY = newPosY;
 }
 
-Centipede::Centipede() : centipedeBody(segmentsCount) {}
+Centipede::Centipede() : centipedeBody(segmentsCount), moveHistory(segmentsCount) {
+}
 
 std::vector<CentipedeSegment> Centipede::getCentipede() {
     return centipedeBody;
 }
 
-void Centipede::move() {    
-    centipedeBody[0].moveSegment();    
-    for(int i = 1; i < centipedeBody.size(); ++i)
+void Centipede::move() {
+    for(int i = 0; i < centipedeBody.size(); ++i)
     {
+        // moveHistory[]
+        centipedeBody[i].setDirection(moveHistory[i]);
         centipedeBody[i].moveSegment();
-        centipedeBody[i].setDirection(centipedeBody[i - 1].getDirection());
     }
 }
 
 void Centipede::moveDown() {
-    auto previousDirection = centipedeBody[0].getDirection();
+    // auto previousDirection = centipedeBody[0].getDirection();
 
-    centipedeBody[0].setDirection(down);
+    moveHistory.pop_back();
+    moveHistory.insert(moveHistory.begin(), down);
+    // centipedeBody[0].setDirection(down);
     move();
 
-    if(previousDirection == right) {
-        centipedeBody[0].setDirection(left);
+    if(moveHistory[1]) {
+        moveHistory.insert(moveHistory.begin(), left);
+        moveHistory.pop_back();
     }
     else {
-        centipedeBody[0].setDirection(right);
+        moveHistory.insert(moveHistory.begin(), right);
+        moveHistory.pop_back();
     }
 }
 
 void Centipede::deleteLastSegment() {
-    centipedeBody.pop_back();
-
+    if(!centipedeBody.empty()){
+        centipedeBody.pop_back();
+        moveHistory.pop_back();
+    }
+    else {
+        createCentipede();
+    }
     /// TODO: if vector is empty call centipedeCreate function (write function :))
 }
 
@@ -85,5 +95,6 @@ void Centipede::createCentipede() {
     // stex dnum em -i vor skzbic chereva pochi masy heto gnalov haytnvi
     for(int i = 0; i < segmentsCount; ++i) {
         centipedeBody[i].setPosition(-i, 0);
+        moveHistory[i] = EDirections::right;
     }
 }

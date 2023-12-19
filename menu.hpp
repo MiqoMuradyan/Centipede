@@ -5,14 +5,13 @@
 #include "screen.hpp"
 
 class Menu {
-private:
-    MenuScreen menuScreen;
-
 public:
     Menu();
     int menuButtons();
     void handleChoice(int choice);
 
+private:
+    MenuScreen menuScreen;
 };
 
 #endif //MENU_HPP
