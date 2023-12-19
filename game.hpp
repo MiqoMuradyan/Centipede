@@ -25,7 +25,7 @@ private:
     GameScreen screen;
     ScoreManager scoreManager;
 
-    const std::chrono::milliseconds centipedeMovingTime{260};
+    const std::chrono::milliseconds centipedeMovingTime{200};
     const std::chrono::milliseconds bulletMovingTime{30};
     const std::chrono::milliseconds shotCooldownTime{200};
 

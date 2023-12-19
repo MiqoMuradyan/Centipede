@@ -9,7 +9,7 @@
 #include "enums.hpp"
 
 
-const int BOARD_HEIGHT = 20;
+const int BOARD_HEIGHT = 30;
 const int BOARD_WIDTH = 40;
 
 const int MUSHROOMS_COUNT_MIN = 20;

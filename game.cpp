@@ -30,27 +30,30 @@ void Game::start() {
 }
 
 void Game::inputHandling() { 
-    /// TODO: Implement input in another class and give to Game class only action 
-    char inputKey;
+    int inputKey;
     inputKey = getch();
 
     switch (inputKey)
     {
+    case KEY_LEFT:
     case 'a':  //TODO: implement this input with KEY_LEFT, and etc.
         if (cursorX > 0) {
            board.movePlayer(left);
         }
         break;
+    case KEY_RIGHT:
     case 'd':
         if (cursorX < BOARD_WIDTH - 1) {
             board.movePlayer(right);
         }            
         break;
+    case KEY_UP:
     case 'w':
         if (cursorY > 0) {
             board.movePlayer(up);
         }
         break;
+    case KEY_DOWN:
     case 's':
         if (cursorY < BOARD_WIDTH - 1) {
             board.movePlayer(down);

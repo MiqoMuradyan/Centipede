@@ -54,6 +54,9 @@ std::vector<CentipedeSegment> Centipede::getCentipede() {
 }
 
 void Centipede::move() {
+    moveHistory.insert(moveHistory.begin(), centipedeBody[0].getDirection());
+    moveHistory.pop_back();
+
     for(int i = 0; i < centipedeBody.size(); ++i)
     {
         // moveHistory[]
@@ -63,25 +66,27 @@ void Centipede::move() {
 }
 
 void Centipede::moveDown() {
-    // auto previousDirection = centipedeBody[0].getDirection();
+    auto previousDirection = centipedeBody[0].getDirection();
 
-    moveHistory.pop_back();
-    moveHistory.insert(moveHistory.begin(), down);
-    // centipedeBody[0].setDirection(down);
+    // moveHistory.pop_back();
+    // moveHistory.insert(moveHistory.begin(), down);
+    centipedeBody[0].setDirection(down);
     move();
 
-    if(moveHistory[1]) {
-        moveHistory.insert(moveHistory.begin(), left);
-        moveHistory.pop_back();
+    if(previousDirection == right) {
+        // moveHistory.insert(moveHistory.begin(), left);
+        // moveHistory.pop_back();
+        centipedeBody[0].setDirection(left);
     }
     else {
-        moveHistory.insert(moveHistory.begin(), right);
-        moveHistory.pop_back();
+        // moveHistory.insert(moveHistory.begin(), right);
+        // moveHistory.pop_back();
+        centipedeBody[0].setDirection(right);
     }
 }
 
 void Centipede::deleteLastSegment() {
-    if(!centipedeBody.empty()){
+    if(!centipedeBody.empty() && centipedeBody.size() > 0){
         centipedeBody.pop_back();
         moveHistory.pop_back();
     }

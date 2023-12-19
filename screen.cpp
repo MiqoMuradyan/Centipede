@@ -57,47 +57,49 @@ void GameScreen::updateGameWindow(matrixOfCharacters table) {
 
     for (int row = 0; row < gameScreenHeight; ++row) 
     {
-        for (int col = 0; col < gameScreenWidth; ++col) 
+        for (int col = 0; col < gameScreenWidth; col += 2) 
         {   
             std::string symbol;
-            switch(table[row][col].getType()){
+            switch(table[row][col / 2].getType()){
                 case mushroom:
                     wattron(gameWindow, COLOR_PAIR(4));
-                    symbol = std::to_string(table[row][col].getHealth());
+                    switch (table[row][col / 2].getHealth()) {
+                    case 4:
+                        symbol = "ZZ";
+                        break;
+                    case 3:
+                        symbol = "zz";
+                        break;
+                    case 2:
+                        symbol = "==";
+                        break;
+                    case 1:
+                        symbol = "__";
+                        break;
+                    }
+                    // symbol = std::to_string(table[row][col].getHealth());
                     break;
                 case player:
                     wattron(gameWindow, COLOR_PAIR(2));
-                    symbol = "O";
+                    symbol = "()";
                     break;
                 case centipede:
                     wattron(gameWindow, COLOR_PAIR(5));
-                    symbol = "#";
+                    symbol = "[]";
                     break;
                 case blank:
-                    symbol = " ";
+                    symbol = "  ";
                     break;
                 case bullet:
-                    symbol = "|";
+                    symbol = "||";
                     break;
             }
 
-            mvwaddch(gameWindow, offsetY + row, offsetX + col, symbol[0]);
+            mvwprintw(gameWindow, offsetY + row, offsetX + col, symbol.c_str());
             wattroff(gameWindow, COLOR_PAIR(2));
             wattroff(gameWindow, COLOR_PAIR(4));
             wattroff(gameWindow, COLOR_PAIR(5));
-            ///TODO: fix this line "col / 2" part, create another logic
-            // if (table[row][col / 2].getType()) {
-            //     wattron(gameWindow, COLOR_PAIR(1));
-            //     mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
-            //     mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
-            //     wattroff(gameWindow, COLOR_PAIR(1));
-            // }
-            // else {
-            //     wattron(gameWindow, COLOR_PAIR(2));
-            //     mvwaddch(gameWindow, offsetY + row, offsetX + col, ' ');
-            //     mvwaddch(gameWindow, offsetY + row, offsetX + col + 1, ' ');
-            //     wattroff(gameWindow, COLOR_PAIR(2));
-            // }
+
         }
     }
 
