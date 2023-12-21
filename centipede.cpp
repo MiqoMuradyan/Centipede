@@ -78,12 +78,14 @@ void Centipede::moveDown() {
 }
 
 void Centipede::deleteLastSegment() {
-    if(!centipedeBody.empty() && centipedeBody.size() > 0){
+    if(centipedeBody.size() == 1){
+        std::vector<CentipedeSegment>(segmentsCount).swap(centipedeBody);
+        std::vector<EDirections>(segmentsCount).swap(moveHistory);
+        createCentipede();
+    }
+    else{
         centipedeBody.pop_back();
         moveHistory.pop_back();
-    }
-    else {
-        createCentipede();
     }
 }
 
