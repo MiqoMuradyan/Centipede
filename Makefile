@@ -1,13 +1,13 @@
 # Compiler
 CXX = g++
 # Compiler flags
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
+CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic 
 LDFLAGS = -lncurses 
 
 # Source files
-SRCS = main.cpp centipede.cpp board.cpp game.cpp screen.cpp character.cpp menu.cpp scoreManager.cpp
+SRCS = main.cpp centipede.cpp board.cpp game.cpp screen.cpp character.cpp menu.cpp
 # Header files
-HEADERS = centipede.hpp board.hpp game.hpp screen.hpp character.hpp  menu.hpp enums.hpp scoreManager.hpp
+HEADERS = centipede.hpp board.hpp game.hpp screen.hpp character.hpp  menu.hpp enums.hpp
 # Object files (generated from source files)
 OBJS = $(SRCS:.cpp=.o)
 

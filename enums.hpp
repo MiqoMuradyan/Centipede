@@ -6,7 +6,6 @@ enum ECharactersType {
     player,
     centipede,
     mushroom,
-    spider,
     bullet
 };
 

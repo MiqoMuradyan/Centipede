@@ -2,11 +2,9 @@
 #define GAME_HPP
 
 #include <chrono>
-#include <iostream>
 
 #include "board.hpp"
 #include "screen.hpp"
-#include "scoreManager.hpp"
 
 using SteadyClock = std::chrono::steady_clock;
 using TimePoint = std::chrono::time_point<SteadyClock>; 
@@ -14,7 +12,6 @@ using TimePoint = std::chrono::time_point<SteadyClock>;
 class Game {
 public:
     Game();
-    ~Game();
     void start();
     void cooldownManager();
     void shootManager();
@@ -23,7 +20,6 @@ public:
 private:
     Board board;
     GameScreen screen;
-    ScoreManager scoreManager;
 
     const std::chrono::milliseconds centipedeMovingTime{200};
     const std::chrono::milliseconds bulletMovingTime{30};
@@ -35,6 +31,7 @@ private:
 
     int cursorX;
     int cursorY;
+    bool lifeStatus;
 
     int scoreAmount = 100;
     

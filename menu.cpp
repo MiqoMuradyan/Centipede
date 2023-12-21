@@ -42,20 +42,12 @@ void Menu::handleChoice(int choice) {
     {
     case 0:
         game.start();
-        // Call Restart screen where will be Restart and MainMenu buttons
-        // Call restart function if 1
-        // and call menu screen when 0 
+        erase();
         break;
 
-    case 1:            
-        
-        break;
-
-    case 2:
-
-        break;
 
     case 3:
+    std::exit(0);
         break;
 
     default:

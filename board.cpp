@@ -4,21 +4,12 @@ Board::Board() {
     generateRandomMushrooms();
     playerPosY = BOARD_HEIGHT - 2;
     playerPosX = BOARD_WIDTH / 2;   
-}
-
-Board::~Board() {
-
-}
+} 
 
 matrixOfCharacters Board::getTable() {
     return table;
 }
 
-bool Board::getIsLose() {
-    return isLose;
-}
-
-//Works
 void Board::generateRandomMushrooms() {
     srand(time(NULL));
     int mushroomsCount = (rand() % (MUSHROOMS_COUNT_MAX - MUSHROOMS_COUNT_MIN + 1)) + MUSHROOMS_COUNT_MIN;
@@ -37,7 +28,6 @@ void Board::generateRandomMushrooms() {
     }
 }
 
-//Works
 void Board::shoot() {
     int bulletIndexY = playerPosY - 1;
     const int bulletIndexX = playerPosX;
@@ -50,40 +40,45 @@ void Board::shoot() {
     }
 }
 
-//Works
-void Board::movePlayer(EDirections direction) {
+bool Board::movePlayer(EDirections direction) {
     table[playerPosY][playerPosX].setType(blank);
-    
+    bool lifeStatus = true;
+
     switch (direction) {
     case up:
-        if (playerPosY > 0 && table[playerPosY - 1][playerPosX].getType() == blank) {
+        if ((playerPosY > 0 && table[playerPosY - 1][playerPosX].getType() == !mushroom) || table[playerPosY - 1][playerPosX].getType() == ECharactersType::centipede) {
             --playerPosY;
         }
         break;
     case down:
-        if (playerPosY < BOARD_HEIGHT - 1 && table[playerPosY + 1][playerPosX].getType() == blank) {
+        if ((playerPosY < BOARD_HEIGHT - 1 && table[playerPosY + 1][playerPosX].getType() == !mushroom) || table[playerPosY + 1][playerPosX].getType() == ECharactersType::centipede) {
             ++playerPosY;
         }
         break;
     case right:
-        if (playerPosX < BOARD_WIDTH - 1 && table[playerPosY][playerPosX + 1].getType() == blank){
+        if ((playerPosX < BOARD_WIDTH - 1 && table[playerPosY][playerPosX + 1].getType() == !mushroom) ||  table[playerPosY][playerPosX + 1].getType() == ECharactersType::centipede){
             ++playerPosX;
         }   
         break;
     case left:
-        if (playerPosX > 0 && table[playerPosY][playerPosX - 1].getType() == blank) {
+        if ((playerPosX > 0 && table[playerPosY][playerPosX - 1].getType() == !mushroom) ||  table[playerPosY][playerPosX - 1].getType() == ECharactersType::centipede) {
             --playerPosX;
         }
         break;
     
     }
 
+    if(table[playerPosY][playerPosX].getType() == ECharactersType::centipede) {
+        lifeStatus = false;
+    }
+
     table[playerPosY][playerPosX].setType(player);
+
+    return lifeStatus;
 }
 
-//Works
 void Board::moveBulletsUp() {
-    for (int i = 0; i < BOARD_HEIGHT - 2; ++i)
+    for (int i = 0; i < BOARD_HEIGHT - 1; ++i)
     {
         for (int j = 0; j < BOARD_WIDTH; ++j)
         {
@@ -109,7 +104,6 @@ void Board::moveBulletsUp() {
     }
 }
 
-//Works
 void Board::checkEnemyType(int posY, int posX) {
     if (table[posY][posX].getType() == mushroom) {
         table[posY][posX].reduceHealth();
@@ -124,7 +118,6 @@ void Board::checkEnemyType(int posY, int posX) {
     }
 }
 
-//Works
 void Board::insertCentipedeInTable() {
     for (int i = 0; i < centipede.getCentipede().size(); ++i) {
         auto [x, y] = centipede.getCentipede()[i].getPosition();
@@ -135,7 +128,6 @@ void Board::insertCentipedeInTable() {
     }
 }
 
-//Works
 void Board::moveCentipede() {
     const auto [nextPosX, nextPosY] = centipede.getCentipede()[0].computeNextPosition();
     
@@ -150,7 +142,6 @@ void Board::moveCentipede() {
     if(nextPosX >= BOARD_WIDTH || nextPosX < 0 || 
     table[nextPosY][nextPosX].getType() == mushroom) {
 
-        //if Y == 0 delete last segment and dont move centipede
         if(nextPosY >= BOARD_HEIGHT - 1) {
             centipede.deleteLastSegment();
         }

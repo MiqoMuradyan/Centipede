@@ -57,9 +57,7 @@ void Centipede::move() {
     moveHistory.insert(moveHistory.begin(), centipedeBody[0].getDirection());
     moveHistory.pop_back();
 
-    for(int i = 0; i < centipedeBody.size(); ++i)
-    {
-        // moveHistory[]
+    for(int i = 0; i < centipedeBody.size(); ++i){
         centipedeBody[i].setDirection(moveHistory[i]);
         centipedeBody[i].moveSegment();
     }
@@ -68,19 +66,13 @@ void Centipede::move() {
 void Centipede::moveDown() {
     auto previousDirection = centipedeBody[0].getDirection();
 
-    // moveHistory.pop_back();
-    // moveHistory.insert(moveHistory.begin(), down);
     centipedeBody[0].setDirection(down);
     move();
 
     if(previousDirection == right) {
-        // moveHistory.insert(moveHistory.begin(), left);
-        // moveHistory.pop_back();
         centipedeBody[0].setDirection(left);
     }
     else {
-        // moveHistory.insert(moveHistory.begin(), right);
-        // moveHistory.pop_back();
         centipedeBody[0].setDirection(right);
     }
 }
@@ -93,11 +85,9 @@ void Centipede::deleteLastSegment() {
     else {
         createCentipede();
     }
-    /// TODO: if vector is empty call centipedeCreate function (write function :))
 }
 
 void Centipede::createCentipede() {
-    // stex dnum em -i vor skzbic chereva pochi masy heto gnalov haytnvi
     for(int i = 0; i < segmentsCount; ++i) {
         centipedeBody[i].setPosition(-i, 0);
         moveHistory[i] = EDirections::right;

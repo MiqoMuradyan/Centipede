@@ -3,7 +3,6 @@
 Game::Game() {
     Board board;
     GameScreen screen;
-    ScoreManager scoreManager;
 
     centipedeMovingStartTime = std::chrono::steady_clock::now();
     bulletMovingStartTime = std::chrono::steady_clock::now();
@@ -13,19 +12,16 @@ Game::Game() {
     cursorX = BOARD_WIDTH / 2;
 }
 
-Game::~Game() {
-
-}
-
 void Game::start() {
+    lifeStatus = true;
+
     board.spawnCentipede();
-    while (!board.getIsLose()) {
+    while (lifeStatus) {
         
         inputHandling();
         cooldownManager();       
         
         screen.updateGameWindow(board.getTable());
-        screen.updateScoreDisplay(scoreManager.getScore(), scoreManager.getHighScore());
     }
 }
 
@@ -36,27 +32,27 @@ void Game::inputHandling() {
     switch (inputKey)
     {
     case KEY_LEFT:
-    case 'a':  //TODO: implement this input with KEY_LEFT, and etc.
+    case 'a':  
         if (cursorX > 0) {
-           board.movePlayer(left);
+           lifeStatus = board.movePlayer(left);
         }
         break;
     case KEY_RIGHT:
     case 'd':
         if (cursorX < BOARD_WIDTH - 1) {
-            board.movePlayer(right);
+            lifeStatus = board.movePlayer(right);
         }            
         break;
     case KEY_UP:
     case 'w':
         if (cursorY > 0) {
-            board.movePlayer(up);
+            lifeStatus = board.movePlayer(up);
         }
         break;
     case KEY_DOWN:
     case 's':
         if (cursorY < BOARD_WIDTH - 1) {
-            board.movePlayer(down);
+            lifeStatus = board.movePlayer(down);
         }
         break;
     case ' ':
@@ -64,7 +60,7 @@ void Game::inputHandling() {
         break;
     case 'q':
     case 'Q':
-        //TODO: create logic to end game
+        lifeStatus = false;
         break;
     }
     

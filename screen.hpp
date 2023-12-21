@@ -7,16 +7,8 @@
 #include <iostream>
 #include <ncurses.h>
 
-class Screen
-{
-public:
-    Screen();
-    ~Screen();
-private:
-};
 
-
-class GameScreen:Screen {
+class GameScreen {
 
 public:
     GameScreen();
@@ -26,20 +18,17 @@ public:
     void updateScoreDisplay(int score, int hightScore);
 
 private : 
-    const int gameScreenHeight = 30;
-    const int gameScreenWidth = 80;
-    const int scoreScreenHeight = 20;
-    const int scoreScreenWidth = 10;
+    const int GAME_SCREEN_HEIGHT = 30;
+    const int GAME_SCREEN_WIDTH = 80;
 
     int offsetX = 1;
     int offsetY = 1;
 
     WINDOW *gameWindow;
-    WINDOW *scoreWindow;
 };
 
 
-class MenuScreen:Screen {
+class MenuScreen{
 public:
     MenuScreen();
     ~MenuScreen();
@@ -53,9 +42,9 @@ private:
 
     const std::string buttons[4] = {
     "Play",
-    "Settings",
+    "Rules",
     "Help",
-    "Exit",
+    "Quit",
     };
 
 };

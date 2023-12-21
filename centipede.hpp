@@ -1,7 +1,6 @@
 #ifndef CENTIPEDE_HPP
 #define CENTIPEDE_HPP
 
-#include <iostream>
 #include <vector>
 
 #include "enums.hpp"

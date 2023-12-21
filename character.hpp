@@ -12,7 +12,6 @@ public:
     int getHealth();
 
 private:
-    // char symbol;
     ECharactersType characterType;
     int health = 4;
 };

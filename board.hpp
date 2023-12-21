@@ -15,21 +15,19 @@ const int BOARD_WIDTH = 40;
 const int MUSHROOMS_COUNT_MIN = 20;
 const int MUSHROOMS_COUNT_MAX = 30;
 
-using arrayOfCharacters = std::array<Character, BOARD_WIDTH>;
+using arrayOfCharacters = std::array<Character, BOARD_WIDTH>; //
 using matrixOfCharacters = std::array<arrayOfCharacters, BOARD_HEIGHT>;
 
 class Board {
 public:
     Board();
-    ~Board();
 
     void generateRandomMushrooms();
     void shoot();
-    void moveBulletsUp();
+    void moveBulletsUp(); 
     void checkEnemyType(int posY, int posX);
-    void movePlayer(EDirections direction);
+    bool movePlayer(EDirections direction);
     matrixOfCharacters getTable();
-    bool getIsLose();
     void insertCentipedeInTable();
     void spawnCentipede();
     void moveCentipede();
@@ -37,7 +35,6 @@ public:
 private:
     int playerPosX;
     int playerPosY;
-    bool isLose = false;
     matrixOfCharacters table;
     Centipede centipede;
 };
