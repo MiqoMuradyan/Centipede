@@ -8,7 +8,7 @@ Board::Board() {
 
 matrixOfCharacters Board::getTable() {
     return table;
-}
+} 
 
 void Board::generateRandomMushrooms() {
     srand(time(NULL));
@@ -16,7 +16,7 @@ void Board::generateRandomMushrooms() {
     
     int positionX;
     int positionY;
-    for (int i = 0; i < mushroomsCount; ++i){
+    for (int i = 0; i < mushroomsCount; ++i) {
         do
         {
             positionX = rand() % BOARD_WIDTH;
@@ -26,7 +26,7 @@ void Board::generateRandomMushrooms() {
         
         table[positionY][positionX].setType(mushroom);
     }
-}
+} 
 
 void Board::shoot() {
     int bulletIndexY = playerPosY - 1;
@@ -38,7 +38,7 @@ void Board::shoot() {
     else {
         table[bulletIndexY][bulletIndexX].setType(bullet);
     }
-}
+} 
 
 bool Board::movePlayer(EDirections direction) {
     table[playerPosY][playerPosX].setType(blank);
@@ -102,7 +102,7 @@ void Board::moveBulletsUp() {
             }
         }
     }
-}
+} 
 
 void Board::checkEnemyType(int posY, int posX) {
     if (table[posY][posX].getType() == mushroom) {
@@ -116,7 +116,7 @@ void Board::checkEnemyType(int posY, int posX) {
     else {
         table[posY][posX].setType(blank);
     }
-}
+} 
 
 void Board::insertCentipedeInTable() {
     for (int i = 0; i < centipede.getCentipede().size(); ++i) {
@@ -147,12 +147,12 @@ void Board::moveCentipede() {
         }
         else {
             centipede.moveDown();
-        }
+        } 
     }
     else {
         centipede.move();
     }
-}
+} 
 
 void Board::spawnCentipede() {
     centipede.createCentipede();

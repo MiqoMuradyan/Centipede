@@ -15,7 +15,6 @@ public:
     ~GameScreen();
 
     void updateGameWindow(matrixOfCharacters table);
-    void updateScoreDisplay(int score, int hightScore);
 
 private : 
     const int GAME_SCREEN_HEIGHT = 30;
